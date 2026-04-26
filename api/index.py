@@ -81,20 +81,20 @@ app.add_middleware(
 
 # ─── Static files (landing page) ────────────────────────────────────────────
 # Vercel environment: files are bundled relative to the root
-_POSSIBLE_PUBLIC_DIRS = [
-    Path(os.path.join(_ROOT, "public")),
-    Path(os.getcwd()) / "public",
-    Path("/var/task/public")
+_POSSIBLE_ASSETS_DIRS = [
+    Path(os.path.join(_ROOT, "static_assets")),
+    Path(os.getcwd()) / "static_assets",
+    Path("/var/task/static_assets")
 ]
 
-PUBLIC_DIR = _POSSIBLE_PUBLIC_DIRS[0]
-for d in _POSSIBLE_PUBLIC_DIRS:
+ASSETS_DIR = _POSSIBLE_ASSETS_DIRS[0]
+for d in _POSSIBLE_ASSETS_DIRS:
     if d.exists():
-        PUBLIC_DIR = d
+        ASSETS_DIR = d
         break
 
-if PUBLIC_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(PUBLIC_DIR)), name="static")
+if ASSETS_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(ASSETS_DIR)), name="static")
 
 # ─── Pydantic Models ─────────────────────────────────────────────────────────
 
@@ -123,7 +123,7 @@ def _error(code: int, msg: str):
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
 async def landing_page():
-    html_path = PUBLIC_DIR / "index.html"
+    html_path = ASSETS_DIR / "index.html"
     if html_path.exists():
         return html_path.read_text(encoding="utf-8")
     return HTMLResponse("<h1>Omni-Settlement Index Suite API – Visit /docs</h1>")

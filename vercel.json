@@ -6,7 +6,7 @@
       "use": "@vercel/python",
       "config": {
         "includeFiles": [
-          "public/**",
+          "static_assets/**",
           "data/**",
           "core/**"
         ]
