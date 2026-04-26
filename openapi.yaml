@@ -1,46 +1,41 @@
 openapi: "3.0.3"
 info:
-  title: "Omni-Settlement Index Suite"
+  title: "Omni-Settlement: Global CBDC-Crypto Bridge & Care-Tax API"
   description: |
-    ## Global Standard Settlement & Care-Tax API
+    ## The Proprietary Standard for Global CBDC-Crypto Cross-Border Settlement
 
-    **"The Final Mile for Cross-Border Silver Economy Payments."**
+    **Omni-Settlement Index Suite** provides a high-performance, stateless API to bridge 
+    **Central Bank Digital Currencies (CBDC)** with decentralized crypto rails (XRP, ETH, USDC).
 
-    A stateless, zero-infrastructure B2B API that bridges **CBDC** (Central Bank Digital Currencies)
-    with decentralized crypto rails (XRP, ETH, USDC) — optimized for the **Silver Economy**.
+    Designed for the **Silver Economy**, this API automates the complex "Final Mile" of 
+    international elder care payments, global remittances, and cross-border tax compliance.
 
-    ### Core Settlement Formula
-    ```
-    S_rate = (V_base × I_care) × (1 + T_global) × B_eff
-    ```
-    | Symbol | Description |
-    |---|---|
-    | `V_base` | CBDC ↔ Crypto bridge rate |
-    | `I_care` | Care-Gap Index multiplier |
-    | `T_global` | Global Tax Index |
-    | `B_eff` | Bridge Efficiency vs SWIFT |
+    ### 🚀 Strategic CBDC Pillars
+    1. **Global CBDC Bridge Index**: Real-time **CBDC** ↔ Crypto settlement indicators.
+    2. **Global Tax Compliance**: Automated withholding & **CBDC-native** tax treaty engine.
+    3. **Care-Gap Index**: AI-driven valuation for international silver care services.
+    4. **Standard Settlement Formula (SSI)**: The unified formula to compute final settlement rates.
 
-    ### Pricing Tiers
-    - **Basic** (Free): 100 calls/mo — `/bridge/rate`, `/care/valuation`
-    - **Pro** ($29/mo): 5,000 calls/mo — + `/tax/calculate`
-    - **Ultra** ($99/mo): 50,000 calls/mo — + `/total/settlement` + ESG
+    ### ESG & Institutional Readiness
+    Every response integrates **Carbon-Footprint** metrics (CO₂ reduction vs SWIFT) and 
+    regulatory status notes, ensuring compliance for institutional CBDC payment platforms.
   version: "1.0.0"
   contact:
     name: "Omni-Settlement Support"
-    url: "https://omni-settlement.vercel.app"
-    email: "api@omni-settlement.io"
+    url: "https://cbdc-crypto-bridge-index.vercel.app"
+    email: "cbdc-bridge@omni-settlement.io"
   license:
     name: "Proprietary – Commercial via RapidAPI"
 
 servers:
-  - url: "https://omni-settlement.vercel.app"
+  - url: "https://cbdc-crypto-bridge-index.vercel.app"
     description: "Production (Vercel Serverless)"
   - url: "http://localhost:8000"
     description: "Local development"
 
 tags:
   - name: "Bridge Rate"
-    description: "CBDC ↔ Crypto settlement index (V_base + B_eff)"
+    description: "Global CBDC ↔ Crypto settlement index (V_base + B_eff)"
   - name: "Global Tax Index"
     description: "Cross-border withholding & service tax (T_global)"
   - name: "Care-Gap Index"
@@ -263,6 +258,35 @@ paths:
                 $ref: "#/components/schemas/SettlementResponse"
         "400":
           $ref: "#/components/responses/BadRequest"
+
+  /report/generate:
+    post:
+      tags: ["Total Settlement (SSI)"]
+      summary: "Generate Professional PDF Settlement Certificate"
+      operationId: "generate_report"
+      description: |
+        Generate a signed, professional PDF report of a settlement calculation.
+        Ideal for B2B compliance, auditing, and corporate record-keeping.
+
+        **RapidAPI Recommendation**: Use 'Pay-per-use' modeling to charge per generated report.
+
+        **Tier**: Ultra ($99/mo) or Pay-per-report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SettlementRequest"
+      responses:
+        "200":
+          description: "Binary PDF file stream"
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "500":
+          description: "Report generation error"
 
 components:
   schemas:

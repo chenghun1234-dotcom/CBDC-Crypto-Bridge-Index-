@@ -31,46 +31,35 @@ from core.report     import generate_pdf_report
 # ─── App Initialization ─────────────────────────────────────────────────────
 
 app = FastAPI(
-    title       = "Omni-Settlement Index Suite",
-    description = """
-## Global Standard Settlement & Care-Tax API
+    title="Omni-Settlement: Global CBDC-Crypto Bridge & Care-Tax API",
+    description="""
+## The Proprietary Standard for Global CBDC-Crypto Cross-Border Settlement
 
-**"The Final Mile for Cross-Border Silver Economy Payments."**
+**Omni-Settlement Index Suite** provides a high-performance, stateless API to bridge 
+**Central Bank Digital Currencies (CBDC)** with decentralized crypto rails (XRP, ETH, USDC).
 
-A stateless, zero-infrastructure B2B API that bridges **CBDC** (Central Bank Digital Currencies)
-with **decentralized crypto rails** (XRP, ETH, USDC) — optimized for the **Silver Economy**:
-cross-border elder care payments, remittances, and regulatory tax compliance.
+Designed for the **Silver Economy**, this API automates the complex "Final Mile" of 
+international elder care payments, global remittances, and cross-border tax compliance.
 
-### Core Settlement Formula
-```
-S_rate = (V_base × I_care) × (1 + T_global) × B_eff
-```
+### 🚀 Strategic CBDC Pillars
+1. **Global CBDC Bridge Index**: Real-time **CBDC** ↔ Crypto settlement indicators.
+2. **Global Tax Compliance**: Automated withholding & **CBDC-native** tax treaty engine.
+3. **Care-Gap Index**: AI-driven valuation for international silver care services.
+4. **Standard Settlement Formula (SSI)**: The unified formula to compute final settlement rates.
 
-| Symbol | Description |
-|---|---|
-| `V_base` | CBDC ↔ Crypto bridge exchange index |
-| `I_care` | Care-Gap Index (country care service weight) |
-| `T_global` | Global Tax Index (withholding + service tax) |
-| `B_eff` | Bridge Efficiency vs SWIFT baseline |
-
-### Pricing Tiers
-- **Basic** (Free): 100 calls/month – `/bridge/rate`, `/care/valuation`
-- **Pro** ($29/mo): 5,000 calls/month – + `/tax/calculate` + volatility scores
-- **Ultra** ($99/mo): 50,000 calls/month – All endpoints + `/total/settlement` + ESG carbon data
-
-### ESG Compliance
-Every response includes **Carbon-Footprint per Transaction** vs SWIFT baseline,
-enabling European and North American ESG-compliant payment platforms.
+### ESG & Regulatory Compliance
+Every response integrates **Carbon-Footprint** metrics (CO₂ reduction vs SWIFT) and 
+regulatory status notes, ensuring compliance for institutional CBDC payment platforms.
 """,
-    version     = "1.0.0",
-    contact     = {
-        "name":  "Omni-Settlement Index Suite",
-        "url":   "https://omni-settlement.vercel.app",
-        "email": "api@omni-settlement.io"
+    version="1.0.0",
+    contact={
+        "name": "Omni-Settlement CBDC Support",
+        "url": "https://cbdc-crypto-bridge-index.vercel.app",
+        "email": "cbdc-bridge@omni-settlement.io"
     },
-    license_info = {"name": "Proprietary – Commercial Use via RapidAPI"},
-    docs_url    = "/docs",
-    redoc_url   = "/redoc",
+    license_info={"name": "Proprietary – Commercial Use via RapidAPI Marketplace"},
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
 
 app.add_middleware(
