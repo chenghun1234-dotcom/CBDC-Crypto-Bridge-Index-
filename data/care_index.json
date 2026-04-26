@@ -3,34 +3,304 @@
   "description": "Care-Gap Index: Silver economy care service value multipliers by country/region",
   "methodology": "Derived from OECD Health at a Glance + WHO Long-Term Care Reports. Values represent relative purchasing power of care services vs. USD baseline (1.0).",
   "regions": {
-    "US": { "name": "United States",   "care_index": 1.00, "avg_hourly_usd": 28.50, "residential_daily_usd": 285, "resident_population_65plus_pct": 17.3, "care_worker_shortage_pct": 22, "service_types": {"visit": 1.00, "residential": 1.15, "remote": 0.60} },
-    "KR": { "name": "South Korea",     "care_index": 0.72, "avg_hourly_usd": 14.20, "residential_daily_usd": 98,  "resident_population_65plus_pct": 19.2, "care_worker_shortage_pct": 35, "service_types": {"visit": 0.72, "residential": 0.85, "remote": 0.45} },
-    "JP": { "name": "Japan",           "care_index": 0.88, "avg_hourly_usd": 18.90, "residential_daily_usd": 220, "resident_population_65plus_pct": 29.1, "care_worker_shortage_pct": 40, "service_types": {"visit": 0.88, "residential": 1.05, "remote": 0.55} },
-    "PH": { "name": "Philippines",     "care_index": 0.28, "avg_hourly_usd": 3.20,  "residential_daily_usd": 18,  "resident_population_65plus_pct": 5.8,  "care_worker_shortage_pct": 5,  "service_types": {"visit": 0.28, "residential": 0.32, "remote": 0.30} },
-    "VN": { "name": "Vietnam",         "care_index": 0.22, "avg_hourly_usd": 2.10,  "residential_daily_usd": 14,  "resident_population_65plus_pct": 8.0,  "care_worker_shortage_pct": 8,  "service_types": {"visit": 0.22, "residential": 0.26, "remote": 0.25} },
-    "ID": { "name": "Indonesia",       "care_index": 0.20, "avg_hourly_usd": 2.00,  "residential_daily_usd": 12,  "resident_population_65plus_pct": 6.6,  "care_worker_shortage_pct": 6,  "service_types": {"visit": 0.20, "residential": 0.24, "remote": 0.22} },
-    "TH": { "name": "Thailand",        "care_index": 0.32, "avg_hourly_usd": 4.50,  "residential_daily_usd": 28,  "resident_population_65plus_pct": 13.5, "care_worker_shortage_pct": 12, "service_types": {"visit": 0.32, "residential": 0.40, "remote": 0.28} },
-    "MY": { "name": "Malaysia",        "care_index": 0.38, "avg_hourly_usd": 5.20,  "residential_daily_usd": 35,  "resident_population_65plus_pct": 7.2,  "care_worker_shortage_pct": 10, "service_types": {"visit": 0.38, "residential": 0.45, "remote": 0.32} },
-    "SG": { "name": "Singapore",       "care_index": 0.82, "avg_hourly_usd": 16.50, "residential_daily_usd": 180, "resident_population_65plus_pct": 15.2, "care_worker_shortage_pct": 28, "service_types": {"visit": 0.82, "residential": 1.00, "remote": 0.50} },
-    "IN": { "name": "India",           "care_index": 0.18, "avg_hourly_usd": 1.80,  "residential_daily_usd": 10,  "resident_population_65plus_pct": 7.1,  "care_worker_shortage_pct": 4,  "service_types": {"visit": 0.18, "residential": 0.22, "remote": 0.20} },
-    "DE": { "name": "Germany",         "care_index": 0.95, "avg_hourly_usd": 24.00, "residential_daily_usd": 260, "resident_population_65plus_pct": 22.4, "care_worker_shortage_pct": 45, "service_types": {"visit": 0.95, "residential": 1.10, "remote": 0.60} },
-    "GB": { "name": "United Kingdom",  "care_index": 0.90, "avg_hourly_usd": 22.00, "residential_daily_usd": 240, "resident_population_65plus_pct": 18.9, "care_worker_shortage_pct": 38, "service_types": {"visit": 0.90, "residential": 1.05, "remote": 0.58} },
-    "AU": { "name": "Australia",       "care_index": 0.92, "avg_hourly_usd": 23.50, "residential_daily_usd": 255, "resident_population_65plus_pct": 16.7, "care_worker_shortage_pct": 30, "service_types": {"visit": 0.92, "residential": 1.08, "remote": 0.58} },
-    "CA": { "name": "Canada",          "care_index": 0.88, "avg_hourly_usd": 21.00, "residential_daily_usd": 230, "resident_population_65plus_pct": 18.0, "care_worker_shortage_pct": 32, "service_types": {"visit": 0.88, "residential": 1.05, "remote": 0.55} },
-    "AE": { "name": "UAE",             "care_index": 0.65, "avg_hourly_usd": 9.50,  "residential_daily_usd": 120, "resident_population_65plus_pct": 1.1,  "care_worker_shortage_pct": 15, "service_types": {"visit": 0.65, "residential": 0.80, "remote": 0.42} },
-    "BD": { "name": "Bangladesh",      "care_index": 0.15, "avg_hourly_usd": 1.20,  "residential_daily_usd": 8,   "resident_population_65plus_pct": 5.6,  "care_worker_shortage_pct": 3,  "service_types": {"visit": 0.15, "residential": 0.18, "remote": 0.16} },
-    "PK": { "name": "Pakistan",        "care_index": 0.16, "avg_hourly_usd": 1.30,  "residential_daily_usd": 9,   "resident_population_65plus_pct": 4.8,  "care_worker_shortage_pct": 4,  "service_types": {"visit": 0.16, "residential": 0.19, "remote": 0.17} },
-    "MX": { "name": "Mexico",          "care_index": 0.35, "avg_hourly_usd": 4.80,  "residential_daily_usd": 32,  "resident_population_65plus_pct": 8.3,  "care_worker_shortage_pct": 8,  "service_types": {"visit": 0.35, "residential": 0.42, "remote": 0.30} },
-    "CN": { "name": "China",           "care_index": 0.45, "avg_hourly_usd": 6.50,  "residential_daily_usd": 48,  "resident_population_65plus_pct": 14.2, "care_worker_shortage_pct": 20, "service_types": {"visit": 0.45, "residential": 0.55, "remote": 0.35} },
-    "NG": { "name": "Nigeria",         "care_index": 0.12, "avg_hourly_usd": 0.90,  "residential_daily_usd": 6,   "resident_population_65plus_pct": 3.1,  "care_worker_shortage_pct": 2,  "service_types": {"visit": 0.12, "residential": 0.14, "remote": 0.13} }
+    "US": {
+      "name": "United States",
+      "care_index": 1.0,
+      "avg_hourly_usd": 28.5,
+      "residential_daily_usd": 285,
+      "resident_population_65plus_pct": 17.3,
+      "care_worker_shortage_pct": 22,
+      "service_types": {
+        "visit": 1.0,
+        "residential": 1.15,
+        "remote": 0.6
+      }
+    },
+    "KR": {
+      "name": "South Korea",
+      "care_index": 0.72,
+      "avg_hourly_usd": 14.2,
+      "residential_daily_usd": 98,
+      "resident_population_65plus_pct": 19.2,
+      "care_worker_shortage_pct": 35,
+      "service_types": {
+        "visit": 0.72,
+        "residential": 0.85,
+        "remote": 0.45
+      }
+    },
+    "JP": {
+      "name": "Japan",
+      "care_index": 0.88,
+      "avg_hourly_usd": 18.9,
+      "residential_daily_usd": 220,
+      "resident_population_65plus_pct": 29.1,
+      "care_worker_shortage_pct": 40,
+      "service_types": {
+        "visit": 0.88,
+        "residential": 1.05,
+        "remote": 0.55
+      }
+    },
+    "PH": {
+      "name": "Philippines",
+      "care_index": 0.28,
+      "avg_hourly_usd": 3.2,
+      "residential_daily_usd": 18,
+      "resident_population_65plus_pct": 5.8,
+      "care_worker_shortage_pct": 5,
+      "service_types": {
+        "visit": 0.28,
+        "residential": 0.32,
+        "remote": 0.3
+      }
+    },
+    "VN": {
+      "name": "Vietnam",
+      "care_index": 0.22,
+      "avg_hourly_usd": 2.1,
+      "residential_daily_usd": 14,
+      "resident_population_65plus_pct": 8.0,
+      "care_worker_shortage_pct": 8,
+      "service_types": {
+        "visit": 0.22,
+        "residential": 0.26,
+        "remote": 0.25
+      }
+    },
+    "ID": {
+      "name": "Indonesia",
+      "care_index": 0.2,
+      "avg_hourly_usd": 2.0,
+      "residential_daily_usd": 12,
+      "resident_population_65plus_pct": 6.6,
+      "care_worker_shortage_pct": 6,
+      "service_types": {
+        "visit": 0.2,
+        "residential": 0.24,
+        "remote": 0.22
+      }
+    },
+    "TH": {
+      "name": "Thailand",
+      "care_index": 0.32,
+      "avg_hourly_usd": 4.5,
+      "residential_daily_usd": 28,
+      "resident_population_65plus_pct": 13.5,
+      "care_worker_shortage_pct": 12,
+      "service_types": {
+        "visit": 0.32,
+        "residential": 0.4,
+        "remote": 0.28
+      }
+    },
+    "MY": {
+      "name": "Malaysia",
+      "care_index": 0.38,
+      "avg_hourly_usd": 5.2,
+      "residential_daily_usd": 35,
+      "resident_population_65plus_pct": 7.2,
+      "care_worker_shortage_pct": 10,
+      "service_types": {
+        "visit": 0.38,
+        "residential": 0.45,
+        "remote": 0.32
+      }
+    },
+    "SG": {
+      "name": "Singapore",
+      "care_index": 0.82,
+      "avg_hourly_usd": 16.5,
+      "residential_daily_usd": 180,
+      "resident_population_65plus_pct": 15.2,
+      "care_worker_shortage_pct": 28,
+      "service_types": {
+        "visit": 0.82,
+        "residential": 1.0,
+        "remote": 0.5
+      }
+    },
+    "IN": {
+      "name": "India",
+      "care_index": 0.18,
+      "avg_hourly_usd": 1.8,
+      "residential_daily_usd": 10,
+      "resident_population_65plus_pct": 7.1,
+      "care_worker_shortage_pct": 4,
+      "service_types": {
+        "visit": 0.18,
+        "residential": 0.22,
+        "remote": 0.2
+      }
+    },
+    "DE": {
+      "name": "Germany",
+      "care_index": 0.95,
+      "avg_hourly_usd": 24.0,
+      "residential_daily_usd": 260,
+      "resident_population_65plus_pct": 22.4,
+      "care_worker_shortage_pct": 45,
+      "service_types": {
+        "visit": 0.95,
+        "residential": 1.1,
+        "remote": 0.6
+      }
+    },
+    "GB": {
+      "name": "United Kingdom",
+      "care_index": 0.9,
+      "avg_hourly_usd": 22.0,
+      "residential_daily_usd": 240,
+      "resident_population_65plus_pct": 18.9,
+      "care_worker_shortage_pct": 38,
+      "service_types": {
+        "visit": 0.9,
+        "residential": 1.05,
+        "remote": 0.58
+      }
+    },
+    "AU": {
+      "name": "Australia",
+      "care_index": 0.92,
+      "avg_hourly_usd": 23.5,
+      "residential_daily_usd": 255,
+      "resident_population_65plus_pct": 16.7,
+      "care_worker_shortage_pct": 30,
+      "service_types": {
+        "visit": 0.92,
+        "residential": 1.08,
+        "remote": 0.58
+      }
+    },
+    "CA": {
+      "name": "Canada",
+      "care_index": 0.88,
+      "avg_hourly_usd": 21.0,
+      "residential_daily_usd": 230,
+      "resident_population_65plus_pct": 18.0,
+      "care_worker_shortage_pct": 32,
+      "service_types": {
+        "visit": 0.88,
+        "residential": 1.05,
+        "remote": 0.55
+      }
+    },
+    "AE": {
+      "name": "UAE",
+      "care_index": 0.65,
+      "avg_hourly_usd": 9.5,
+      "residential_daily_usd": 120,
+      "resident_population_65plus_pct": 1.1,
+      "care_worker_shortage_pct": 15,
+      "service_types": {
+        "visit": 0.65,
+        "residential": 0.8,
+        "remote": 0.42
+      }
+    },
+    "BD": {
+      "name": "Bangladesh",
+      "care_index": 0.15,
+      "avg_hourly_usd": 1.2,
+      "residential_daily_usd": 8,
+      "resident_population_65plus_pct": 5.6,
+      "care_worker_shortage_pct": 3,
+      "service_types": {
+        "visit": 0.15,
+        "residential": 0.18,
+        "remote": 0.16
+      }
+    },
+    "PK": {
+      "name": "Pakistan",
+      "care_index": 0.16,
+      "avg_hourly_usd": 1.3,
+      "residential_daily_usd": 9,
+      "resident_population_65plus_pct": 4.8,
+      "care_worker_shortage_pct": 4,
+      "service_types": {
+        "visit": 0.16,
+        "residential": 0.19,
+        "remote": 0.17
+      }
+    },
+    "MX": {
+      "name": "Mexico",
+      "care_index": 0.35,
+      "avg_hourly_usd": 4.8,
+      "residential_daily_usd": 32,
+      "resident_population_65plus_pct": 8.3,
+      "care_worker_shortage_pct": 8,
+      "service_types": {
+        "visit": 0.35,
+        "residential": 0.42,
+        "remote": 0.3
+      }
+    },
+    "CN": {
+      "name": "China",
+      "care_index": 0.45,
+      "avg_hourly_usd": 6.5,
+      "residential_daily_usd": 48,
+      "resident_population_65plus_pct": 14.2,
+      "care_worker_shortage_pct": 20,
+      "service_types": {
+        "visit": 0.45,
+        "residential": 0.55,
+        "remote": 0.35
+      }
+    },
+    "NG": {
+      "name": "Nigeria",
+      "care_index": 0.12,
+      "avg_hourly_usd": 0.9,
+      "residential_daily_usd": 6,
+      "resident_population_65plus_pct": 3.1,
+      "care_worker_shortage_pct": 2,
+      "service_types": {
+        "visit": 0.12,
+        "residential": 0.14,
+        "remote": 0.13
+      }
+    }
   },
   "arbitrage_insights": {
     "top_cost_efficient_pairs": [
-      {"from": "US", "to": "PH", "savings_pct": 88.8, "recommended_crypto": "XRP", "insight": "PH care workers via XRP bridge saves ~$2,240/month vs SWIFT"},
-      {"from": "JP", "to": "VN", "savings_pct": 75.2, "recommended_crypto": "XRP", "insight": "JP-VN corridor XRP settlement 4.2x faster than wire transfer"},
-      {"from": "KR", "to": "ID", "savings_pct": 72.3, "recommended_crypto": "XRP", "insight": "KR-ID Care-Gap arbitrage: optimal payment window Tue–Thu UTC 02–06"},
-      {"from": "DE", "to": "IN", "savings_pct": 81.0, "recommended_crypto": "USDC", "insight": "Germany elder care via India remote services = 81% cost reduction"},
-      {"from": "AU", "to": "BD", "savings_pct": 83.5, "recommended_crypto": "XRP", "insight": "AU-BD corridor shows highest care arbitrage efficiency in Asia-Pacific"}
+      {
+        "from": "US",
+        "to": "PH",
+        "savings_pct": 88.8,
+        "recommended_crypto": "XRP",
+        "insight": "PH care workers via XRP bridge saves ~$2,240/month vs SWIFT"
+      },
+      {
+        "from": "JP",
+        "to": "VN",
+        "savings_pct": 75.2,
+        "recommended_crypto": "XRP",
+        "insight": "JP-VN corridor XRP settlement 4.2x faster than wire transfer"
+      },
+      {
+        "from": "KR",
+        "to": "ID",
+        "savings_pct": 72.3,
+        "recommended_crypto": "XRP",
+        "insight": "KR-ID Care-Gap arbitrage: optimal payment window Tue–Thu UTC 02–06"
+      },
+      {
+        "from": "DE",
+        "to": "IN",
+        "savings_pct": 81.0,
+        "recommended_crypto": "USDC",
+        "insight": "Germany elder care via India remote services = 81% cost reduction"
+      },
+      {
+        "from": "AU",
+        "to": "BD",
+        "savings_pct": 83.5,
+        "recommended_crypto": "XRP",
+        "insight": "AU-BD corridor shows highest care arbitrage efficiency in Asia-Pacific"
+      }
     ]
   }
 }

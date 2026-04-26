@@ -20,6 +20,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, Literal
 from pathlib import Path
 import time
+import datetime
 
 from core.bridge     import get_bridge_rate
 from core.tax        import calculate_tax
@@ -337,9 +338,9 @@ async def report_generate(body: SettlementRequest):
         pdf_bytes = generate_pdf_report(data)
         
         # 3. Return as response
-        filename = f"OmniSettlement_{body.dest_country}_{datetime.now().strftime('%Y%m%d')}.pdf"
+        filename = f"OmniSettlement_{body.dest_country}_{datetime.datetime.now().strftime('%Y%m%d')}.pdf"
         return Response(
-            content=pdf_bytes,
+            content=bytes(pdf_bytes),
             media_type="application/pdf",
             headers={"Content-Disposition": f"attachment; filename={filename}"}
         )
