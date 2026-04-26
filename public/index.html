@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omni-Settlement Index Suite | Global Standard Settlement & Care-Tax API</title>
+  <meta name="description" content="The Final Mile for Cross-Border Silver Economy Payments. Bridge CBDC and Crypto with real-time settlement, tax compliance, and Care-Gap Index in one API call." />
+  <meta property="og:title" content="Omni-Settlement Index Suite" />
+  <meta property="og:description" content="Global Standard Settlement & Care-Tax API – CBDC × Crypto × Silver Economy" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #04070f;
+      --surface:     #080e1c;
+      --panel:       #0d1626;
+      --border:      rgba(99,179,237,0.12);
+      --border-glow: rgba(99,179,237,0.35);
+      --accent1:     #3b82f6;
+      --accent2:     #06b6d4;
+      --accent3:     #8b5cf6;
+      --gold:        #f59e0b;
+      --green:       #10b981;
+      --text:        #e2e8f0;
+      --text-muted:  #64748b;
+      --text-dim:    #94a3b8;
+      --mono:        'JetBrains Mono', monospace;
+      --sans:        'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── Animated grid background ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPan 60s linear infinite;
+    }
+    @keyframes gridPan { to { background-position: 60px 60px; } }
+
+    /* ── Radial glows ── */
+    .glow-blob {
+      position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0;
+    }
+    .glow-blob.b1 { width:700px; height:700px; top:-200px; left:-200px;  background:rgba(59,130,246,0.10); animation: blobFloat1 20s ease-in-out infinite; }
+    .glow-blob.b2 { width:500px; height:500px; top:50%;   right:-150px; background:rgba(139,92,246,0.08); animation: blobFloat2 25s ease-in-out infinite; }
+    .glow-blob.b3 { width:400px; height:400px; bottom:10%; left:30%;    background:rgba(6,182,212,0.06);  animation: blobFloat3 18s ease-in-out infinite; }
+    @keyframes blobFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,40px)} }
+    @keyframes blobFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,60px)} }
+    @keyframes blobFloat3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-30px)} }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 0;
+      background: rgba(4,7,15,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; max-width:1200px; margin:0 auto; padding:0 24px; }
+    .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo {
+      width:38px; height:38px; border-radius:10px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent3));
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; font-weight:900; color:#fff;
+      box-shadow: 0 0 20px rgba(59,130,246,0.5);
+    }
+    .nav-brand-text { font-size:15px; font-weight:700; color:var(--text); }
+    .nav-brand-sub  { font-size:11px; color:var(--text-muted); font-weight:400; }
+    .nav-links { display:flex; align-items:center; gap:8px; }
+    .nav-link {
+      padding:8px 16px; border-radius:8px; font-size:13px; font-weight:500;
+      color:var(--text-dim); text-decoration:none;
+      transition: all 0.2s;
+    }
+    .nav-link:hover { background:rgba(59,130,246,0.1); color:var(--accent1); }
+    .btn-nav {
+      padding:8px 20px; border-radius:8px; font-size:13px; font-weight:600;
+      background: linear-gradient(135deg, var(--accent1), var(--accent3));
+      color:#fff; text-decoration:none;
+      transition: all 0.2s;
+      box-shadow: 0 0 20px rgba(59,130,246,0.3);
+    }
+    .btn-nav:hover { transform:translateY(-1px); box-shadow:0 4px 30px rgba(59,130,246,0.5); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 0 80px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items:center; gap:8px;
+      padding: 6px 16px; border-radius: 100px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      font-size: 12px; font-weight: 600;
+      color: var(--accent2);
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+    .hero-headline {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-headline .grad {
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.15rem; font-weight: 400; color: var(--text-dim);
+      max-width: 680px; margin-bottom: 20px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-slogan {
+      font-family: var(--mono); font-size: 0.9rem;
+      color: var(--gold); margin-bottom: 48px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:64px; animation: fadeUp 0.6s 0.4s ease both; }
+    .btn-primary {
+      padding:14px 32px; border-radius:12px; font-size:15px; font-weight:700;
+      background: linear-gradient(135deg, var(--accent1), var(--accent3));
+      color:#fff; text-decoration:none;
+      box-shadow: 0 4px 30px rgba(59,130,246,0.4);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 40px rgba(59,130,246,0.6); }
+    .btn-ghost {
+      padding:14px 32px; border-radius:12px; font-size:15px; font-weight:600;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color:var(--text-dim); text-decoration:none;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color:var(--border-glow); color:var(--text); background:rgba(255,255,255,0.07); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── FORMULA BOX ── */
+    .formula-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      animation: fadeUp 0.6s 0.5s ease both;
+      position: relative; overflow: hidden;
+    }
+    .formula-box::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+    }
+    .formula-label { font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px; }
+    .formula-eq {
+      font-family: var(--mono); font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 600; color: var(--accent2);
+      margin-bottom: 16px;
+    }
+    .formula-vars { display:flex; flex-wrap:wrap; gap:12px; }
+    .formula-var {
+      display:flex; align-items:center; gap:8px;
+      padding:6px 14px; border-radius:8px;
+      background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15);
+      font-size:12px;
+    }
+    .formula-var code { font-family:var(--mono); color:var(--accent1); font-weight:600; }
+    .formula-var span { color:var(--text-dim); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+      background:var(--border);
+      border:1px solid var(--border);
+      border-radius:16px; overflow:hidden;
+      margin: 60px 0;
+    }
+    .stat-item {
+      background:var(--panel); padding:28px 24px;
+      transition:background 0.2s;
+    }
+    .stat-item:hover { background:var(--surface); }
+    .stat-number { font-size:2rem; font-weight:900; margin-bottom:4px; }
+    .stat-number.blue  { color:var(--accent1); }
+    .stat-number.cyan  { color:var(--accent2); }
+    .stat-number.purple{ color:var(--accent3); }
+    .stat-number.gold  { color:var(--gold);    }
+    .stat-label  { font-size:12px; color:var(--text-muted); font-weight:500; }
+
+    /* ── SECTION HEADERS ── */
+    .section { padding: 80px 0; }
+    .section-badge {
+      display:inline-block; padding:4px 14px; border-radius:100px;
+      background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.2);
+      font-size:11px; font-weight:700; color:var(--accent1);
+      letter-spacing:0.08em; text-transform:uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title { font-size:clamp(1.8rem,3vw,2.8rem); font-weight:800; line-height:1.15; margin-bottom:12px; }
+    .section-sub   { font-size:1rem; color:var(--text-dim); max-width:580px; margin-bottom:48px; }
+
+    /* ── ENDPOINT CARDS ── */
+    .endpoints-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+    .ep-card {
+      background:var(--panel); border:1px solid var(--border); border-radius:16px;
+      padding:28px; position:relative; overflow:hidden;
+      transition:all 0.3s; cursor:default;
+    }
+    .ep-card::before {
+      content:''; position:absolute; inset:0; border-radius:16px;
+      background:linear-gradient(135deg,rgba(59,130,246,0.05),transparent);
+      opacity:0; transition:opacity 0.3s;
+    }
+    .ep-card:hover { border-color:var(--border-glow); transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+    .ep-card:hover::before { opacity:1; }
+    .ep-method {
+      display:inline-block; padding:3px 10px; border-radius:6px;
+      font-family:var(--mono); font-size:11px; font-weight:700;
+      margin-bottom:12px;
+    }
+    .ep-method.get  { background:rgba(16,185,129,0.1); color:var(--green); }
+    .ep-method.post { background:rgba(245,158,11,0.1); color:var(--gold); }
+    .ep-path {
+      font-family:var(--mono); font-size:15px; font-weight:600;
+      color:var(--accent2); margin-bottom:12px;
+    }
+    .ep-title  { font-size:16px; font-weight:700; margin-bottom:8px; }
+    .ep-desc   { font-size:13px; color:var(--text-dim); line-height:1.55; margin-bottom:16px; }
+    .ep-params { display:flex; flex-wrap:wrap; gap:6px; }
+    .ep-param  {
+      padding:3px 10px; border-radius:6px;
+      background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.15);
+      font-family:var(--mono); font-size:11px; color:var(--accent3);
+    }
+    .ep-tier {
+      position:absolute; top:20px; right:20px;
+      padding:3px 10px; border-radius:100px;
+      font-size:10px; font-weight:700; text-transform:uppercase;
+    }
+    .ep-tier.free   { background:rgba(16,185,129,0.1); color:var(--green); }
+    .ep-tier.pro    { background:rgba(59,130,246,0.1);   color:var(--accent1); }
+    .ep-tier.ultra  { background:rgba(245,158,11,0.1);   color:var(--gold); }
+    .ep-killer { font-size:18px; position:absolute; top:16px; right:52px; }
+
+    /* ── KILLER FEATURES ── */
+    .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:24px; }
+    .feat-card {
+      background:var(--panel); border:1px solid var(--border); border-radius:16px;
+      padding:32px; transition:all 0.3s;
+    }
+    .feat-card:hover { border-color:var(--border-glow); transform:translateY(-3px); }
+    .feat-icon { font-size:36px; margin-bottom:16px; }
+    .feat-title { font-size:18px; font-weight:700; margin-bottom:10px; }
+    .feat-desc  { font-size:13px; color:var(--text-dim); line-height:1.6; }
+    .feat-highlight {
+      margin-top:16px; padding:12px 16px; border-radius:10px;
+      background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15);
+      font-family:var(--mono); font-size:12px; color:var(--accent2);
+    }
+
+    /* ── JSON PREVIEW ── */
+    .demo-section { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+    @media(max-width:768px){ .demo-section { grid-template-columns:1fr; } }
+    .demo-panel {
+      background:var(--panel); border:1px solid var(--border); border-radius:16px;
+      overflow:hidden;
+    }
+    .demo-panel-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px; background:var(--bg);
+      border-bottom:1px solid var(--border);
+      font-family:var(--mono); font-size:12px; color:var(--text-muted);
+    }
+    .demo-dots { display:flex; gap:6px; }
+    .demo-dots span { width:10px; height:10px; border-radius:50%; }
+    .demo-dots .r{background:#ff5f56;} .demo-dots .y{background:#ffbd2e;} .demo-dots .g{background:#27c93f;}
+    .demo-code { padding:24px; font-family:var(--mono); font-size:12.5px; line-height:1.7; overflow-x:auto; }
+    .j-key    { color:#79c0ff; }
+    .j-str    { color:#a8ff78; }
+    .j-num    { color:#f89b59; }
+    .j-bool   { color:#ff7b72; }
+    .j-muted  { color:var(--text-muted); }
+
+    /* ── PRICING ── */
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    @media(max-width:768px){ .pricing-grid { grid-template-columns:1fr; } }
+    .price-card {
+      background:var(--panel); border:1px solid var(--border); border-radius:20px;
+      padding:36px 28px; position:relative; transition:all 0.3s;
+    }
+    .price-card:hover { transform:translateY(-4px); }
+    .price-card.popular {
+      border-color:var(--accent1);
+      box-shadow:0 0 40px rgba(59,130,246,0.2);
+    }
+    .price-card.popular::before {
+      content:'Most Popular';
+      position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+      padding:4px 16px; border-radius:100px; font-size:11px; font-weight:700;
+      background:linear-gradient(135deg,var(--accent1),var(--accent3)); color:#fff;
+    }
+    .price-tier { font-size:12px; font-weight:700; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px; }
+    .price-amount { font-size:3rem; font-weight:900; line-height:1; margin-bottom:4px; }
+    .price-amount .currency { font-size:1.5rem; vertical-align:top; margin-top:8px; display:inline-block; color:var(--text-dim); }
+    .price-amount .period   { font-size:1rem; font-weight:400; color:var(--text-muted); }
+    .price-calls { font-size:13px; color:var(--text-muted); margin-bottom:24px; }
+    .price-features { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+    .price-features li { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text-dim); }
+    .price-features li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
+    .price-features li.locked::before { content:'🔒'; }
+    .btn-pricing {
+      display:block; width:100%; text-align:center;
+      padding:14px; border-radius:10px; font-size:14px; font-weight:700;
+      text-decoration:none; transition:all 0.2s;
+    }
+    .btn-pricing.gradient {
+      background:linear-gradient(135deg,var(--accent1),var(--accent3));
+      color:#fff; box-shadow:0 4px 20px rgba(59,130,246,0.3);
+    }
+    .btn-pricing.gradient:hover { transform:translateY(-1px); box-shadow:0 6px 30px rgba(59,130,246,0.5); }
+    .btn-pricing.outline {
+      border:1px solid var(--border); color:var(--text-dim);
+      background:transparent;
+    }
+    .btn-pricing.outline:hover { border-color:var(--border-glow); color:var(--text); }
+
+    /* ── ESG BADGE ── */
+    .esg-banner {
+      display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap;
+      padding:32px; border-radius:20px;
+      background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.06));
+      border:1px solid rgba(16,185,129,0.2);
+      margin-top:60px;
+    }
+    .esg-item { display:flex; align-items:center; gap:10px; }
+    .esg-icon { font-size:24px; }
+    .esg-text { font-size:13px; color:var(--text-dim); }
+    .esg-text strong { color:var(--green); display:block; font-size:15px; font-weight:700; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .footer-brand { font-size:14px; font-weight:700; color:var(--text-dim); }
+    .footer-note  { font-size:12px; color:var(--text-muted); }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a { font-size:12px; color:var(--text-muted); text-decoration:none; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--accent1); }
+
+    /* ── SCROLL ANIMATION ── */
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s, transform 0.6s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:640px){
+      .stats-bar { grid-template-columns:repeat(2,1fr); }
+      .nav-links { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-blob b1"></div>
+  <div class="glow-blob b2"></div>
+  <div class="glow-blob b3"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="nav-logo">Ω</div>
+        <div>
+          <div class="nav-brand-text">Omni-Settlement</div>
+          <div class="nav-brand-sub">Index Suite v1.0</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#endpoints" class="nav-link">Endpoints</a>
+        <a href="#features"  class="nav-link">Features</a>
+        <a href="#demo"      class="nav-link">Live Demo</a>
+        <a href="#pricing"   class="nav-link">Pricing</a>
+        <a href="/docs"      class="btn-nav" target="_blank">API Docs →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Live on RapidAPI · Serverless · Zero Infrastructure Cost
+      </div>
+      <h1 class="hero-headline">
+        The <span class="grad">Omni-Settlement</span><br/>
+        Index Suite
+      </h1>
+      <p class="hero-sub">
+        Global Standard Settlement & Care-Tax API — bridging <strong>Central Bank Digital Currencies (CBDC)</strong>
+        with decentralized crypto rails for the <strong>Silver Economy</strong>.
+        Real-time settlement, tax compliance, and Care-Gap valuation in one API call.
+      </p>
+      <p class="hero-slogan">"The Final Mile for Cross-Border Silver Economy Payments."</p>
+      <div class="hero-ctas">
+        <a href="/docs"                class="btn-primary">Explore API Docs →</a>
+        <a href="#endpoints"          class="btn-ghost">View Endpoints</a>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Core Settlement Formula</div>
+        <div class="formula-eq">S<sub>rate</sub> = (V<sub>base</sub> × I<sub>care</sub>) × (1 + T<sub>global</sub>) × B<sub>eff</sub></div>
+        <div class="formula-vars">
+          <div class="formula-var"><code>V_base</code>   <span>CBDC ↔ Crypto bridge exchange index</span></div>
+          <div class="formula-var"><code>I_care</code>   <span>Care-Gap Index (country care weight)</span></div>
+          <div class="formula-var"><code>T_global</code> <span>Global Tax Index (withholding + VAT)</span></div>
+          <div class="formula-var"><code>B_eff</code>    <span>Bridge Efficiency vs. SWIFT baseline</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="container">
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-number blue">$42.08</div>
+        <div class="stat-label">Saved per $1,000 vs SWIFT (XRP)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number cyan">43,200×</div>
+        <div class="stat-label">Faster settlement than wire transfer</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number purple">50+</div>
+        <div class="stat-label">Countries in Tax Index dataset</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number gold">99.6%</div>
+        <div class="stat-label">CO₂ reduction vs SWIFT (XRP)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENDPOINTS -->
+  <section class="section" id="endpoints">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-badge">4 Core Endpoints</div>
+        <h2 class="section-title">Everything You Need for<br/>Cross-Border Care Payments</h2>
+        <p class="section-sub">Stateless, sub-10ms responses. No database. No state. Just deterministic financial intelligence.</p>
+      </div>
+      <div class="endpoints-grid reveal">
+
+        <div class="ep-card">
+          <span class="ep-tier free">Free</span>
+          <div class="ep-method get">GET</div>
+          <div class="ep-path">/bridge/rate</div>
+          <div class="ep-title">CBDC ↔ Crypto Settlement Index</div>
+          <div class="ep-desc">Real-time bridge exchange rate between any CBDC and XRP/ETH/USDC/BTC, with Bridge Efficiency score and fee comparison vs SWIFT.</div>
+          <div class="ep-params">
+            <span class="ep-param">base_currency</span>
+            <span class="ep-param">target_crypto</span>
+            <span class="ep-param">amount</span>
+          </div>
+        </div>
+
+        <div class="ep-card">
+          <span class="ep-tier pro">Pro</span>
+          <div class="ep-method get">GET</div>
+          <div class="ep-path">/tax/calculate</div>
+          <div class="ep-title">Cross-Border Tax & Withholding</div>
+          <div class="ep-desc">Computes T_global: effective rate across 50+ countries, with treaty discounts, silver care deductions, and VAT breakdown.</div>
+          <div class="ep-params">
+            <span class="ep-param">from_country</span>
+            <span class="ep-param">to_country</span>
+            <span class="ep-param">service_type</span>
+          </div>
+        </div>
+
+        <div class="ep-card">
+          <span class="ep-tier free">Free</span>
+          <div class="ep-method get">GET</div>
+          <div class="ep-path">/care/valuation</div>
+          <div class="ep-title">Care-Gap Index Valuation</div>
+          <div class="ep-desc">Calculates I_care: care service cost projections, arbitrage score vs US baseline, and optimal payment window recommendations.</div>
+          <div class="ep-params">
+            <span class="ep-param">region</span>
+            <span class="ep-param">service_type</span>
+            <span class="ep-param">hours_per_week</span>
+          </div>
+        </div>
+
+        <div class="ep-card">
+          <span class="ep-tier ultra">Ultra</span>
+          <span class="ep-killer">⭐</span>
+          <div class="ep-method post">POST</div>
+          <div class="ep-path">/total/settlement</div>
+          <div class="ep-title">Full Standard Settlement Rate</div>
+          <div class="ep-desc">The Killer Endpoint. Combines V_base × I_care × T_global × B_eff into S_rate — exact crypto received, tax deducted, ESG carbon, and care coverage months.</div>
+          <div class="ep-params">
+            <span class="ep-param">origin_cbdc</span>
+            <span class="ep-param">dest_country</span>
+            <span class="ep-param">amount</span>
+            <span class="ep-param">target_crypto</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features" style="background:rgba(8,14,28,0.5);">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-badge">Killer Features</div>
+        <h2 class="section-title">What Makes This API Unique</h2>
+        <p class="section-sub">Three proprietary indices unavailable anywhere else — combined in one B2B settlement suite.</p>
+      </div>
+      <div class="features-grid reveal">
+        <div class="feat-card">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-title">Real-Time Bridge Efficiency Score</div>
+          <div class="feat-desc">Not just "XRP is fast" — concrete dollar savings and speed multipliers for every corridor. Every response includes exact fee comparison vs SWIFT baseline.</div>
+          <div class="feat-highlight">Per $1,000 via XRP: save $42.08 vs SWIFT · 43,200× faster</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🏛️</div>
+          <div class="feat-title">Regulatory Compliance Tax Mapping</div>
+          <div class="feat-desc">Global Tax Index with treaty discounts, silver care deductions, and VAT. The #1 feature B2B clients need — pay and stay compliant simultaneously.</div>
+          <div class="feat-highlight">50+ countries · Tax treaty detection · Silver care 10–30% deduction</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">👴</div>
+          <div class="feat-title">Care-Gap Arbitrage Insight</div>
+          <div class="feat-desc">Recommends the most cost-efficient country corridor and payment timing when hiring cross-border care workers. Essential for Silver Economy platforms.</div>
+          <div class="feat-highlight">US→PH: ~$2,240/month savings · optimal via XRP bridge</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🌿</div>
+          <div class="feat-title">ESG Carbon Footprint Per Transaction</div>
+          <div class="feat-desc">Every response includes CO₂ grams saved vs SWIFT. Designed for European ESG-compliant institutional payment platforms and fintech sustainability reporting.</div>
+          <div class="feat-highlight">XRP: 99.6% carbon reduction vs SWIFT wire transfers</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔗</div>
+          <div class="feat-title">Multi-CBDC Architecture</div>
+          <div class="feat-desc">Supports 10 CBDC currencies (Digital Dollar, e-CNY, Digital Won, eAUD, Digital Dirham, and more) across 4 crypto bridge assets with corridor compatibility checks.</div>
+          <div class="feat-highlight">USD · EUR · KRW · JPY · CNY · SGD · AED · GBP · AUD · CAD</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📊</div>
+          <div class="feat-title">Zero-Infrastructure Cost</div>
+          <div class="feat-desc">Fully stateless — all computations are deterministic, no database, no external API calls. Deploy on Vercel for $0/month while serving thousands of B2B clients.</div>
+          <div class="feat-highlight">Serverless · Sub-10ms · $0 operating cost · OpenAPI 3.0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE DEMO -->
+  <section class="section" id="demo">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-badge">Live Response Preview</div>
+        <h2 class="section-title">See the SSI Formula in Action</h2>
+        <p class="section-sub">POST /total/settlement — US agency sends $5,000 to hire a Philippine care worker via XRP.</p>
+      </div>
+      <div class="demo-section reveal">
+        <div class="demo-panel">
+          <div class="demo-panel-header">
+            <div class="demo-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <span>REQUEST · POST /total/settlement</span>
+            <span style="color:var(--green)">200 OK</span>
+          </div>
+          <div class="demo-code">
+<span class="j-muted">{</span><br/>
+&nbsp;&nbsp;<span class="j-key">"origin_cbdc"</span>:   <span class="j-str">"USD"</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"dest_country"</span>:  <span class="j-str">"PH"</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"amount"</span>:        <span class="j-num">5000</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"target_crypto"</span>: <span class="j-str">"XRP"</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"service_type"</span>:  <span class="j-str">"care"</span><br/>
+<span class="j-muted">}</span>
+          </div>
+        </div>
+        <div class="demo-panel">
+          <div class="demo-panel-header">
+            <div class="demo-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <span>RESPONSE · S_rate computed</span>
+            <span style="color:var(--accent2)">~3ms</span>
+          </div>
+          <div class="demo-code" style="font-size:11.5px">
+<span class="j-key">"components"</span>: {<br/>
+&nbsp;&nbsp;<span class="j-key">"v_base"</span>:   <span class="j-num">0.46728972</span>, <span class="j-muted">// XRP per $1</span><br/>
+&nbsp;&nbsp;<span class="j-key">"i_care"</span>:   <span class="j-num">0.28</span>, <span class="j-muted">// PH care index</span><br/>
+&nbsp;&nbsp;<span class="j-key">"t_global"</span>: <span class="j-num">0.075</span>, <span class="j-muted">// effective tax</span><br/>
+&nbsp;&nbsp;<span class="j-key">"b_eff"</span>:    <span class="j-num">0.958</span> <span class="j-muted">// bridge efficiency</span><br/>
+},<br/>
+<span class="j-key">"s_rate"</span>: <span class="j-num">0.00012540</span>,<br/>
+<span class="j-key">"settlement_summary"</span>: {<br/>
+&nbsp;&nbsp;<span class="j-key">"tax_deducted_usd"</span>: <span class="j-num">375.00</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"net_after_tax_usd"</span>: <span class="j-num">4625.00</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"crypto_received"</span>:  <span class="j-num">2073.81</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"care_coverage_months"</span>: <span class="j-num">8.4</span><br/>
+},<br/>
+<span class="j-key">"cost_efficiency"</span>: {<br/>
+&nbsp;&nbsp;<span class="j-key">"swift_fee_usd"</span>: <span class="j-num">212.50</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"bridge_fee_usd"</span>: <span class="j-num">2.10</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"savings_usd"</span>: <span class="j-num">210.40</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"savings_pct"</span>: <span class="j-num">99.0</span><br/>
+},<br/>
+<span class="j-key">"esg"</span>: {<br/>
+&nbsp;&nbsp;<span class="j-key">"carbon_reduction_pct"</span>: <span class="j-num">99.6</span>,<br/>
+&nbsp;&nbsp;<span class="j-key">"carbon_saved_g"</span>: <span class="j-num">4233.4</span><br/>
+}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing" style="background:rgba(8,14,28,0.5);">
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <div class="section-badge">RapidAPI Pricing</div>
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <p class="section-sub" style="margin:0 auto 48px">From free exploration to enterprise-grade settlement at scale.</p>
+      </div>
+      <div class="pricing-grid reveal">
+
+        <div class="price-card">
+          <div class="price-tier">Basic</div>
+          <div class="price-amount">Free</div>
+          <div class="price-calls">100 API calls / month</div>
+          <ul class="price-features">
+            <li>/bridge/rate endpoint</li>
+            <li>/care/valuation endpoint</li>
+            <li>/health status check</li>
+            <li>ESG carbon data</li>
+            <li class="locked">/tax/calculate</li>
+            <li class="locked">/total/settlement</li>
+          </ul>
+          <a href="/docs" class="btn-pricing outline">Start Free →</a>
+        </div>
+
+        <div class="price-card popular">
+          <div class="price-tier">Pro</div>
+          <div class="price-amount"><span class="currency">$</span>29<span class="period">/mo</span></div>
+          <div class="price-calls">5,000 API calls / month</div>
+          <ul class="price-features">
+            <li>All Basic features</li>
+            <li>/tax/calculate endpoint</li>
+            <li>Volatility score in bridge data</li>
+            <li>Tax treaty detection</li>
+            <li>Silver care deduction logic</li>
+            <li class="locked">/total/settlement</li>
+          </ul>
+          <a href="/docs" class="btn-pricing gradient">Subscribe on RapidAPI →</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-tier">Ultra</div>
+          <div class="price-amount"><span class="currency">$</span>99<span class="period">/mo</span></div>
+          <div class="price-calls">50,000 API calls / month</div>
+          <ul class="price-features">
+            <li>All Pro features</li>
+            <li>/total/settlement (SSI Formula)</li>
+            <li>Care-Gap Arbitrage Insights</li>
+            <li>ESG compliance reporting</li>
+            <li>Multi-CBDC corridors</li>
+            <li>Priority SLA + docs support</li>
+          </ul>
+          <a href="/docs" class="btn-pricing outline">Go Ultra →</a>
+        </div>
+
+      </div>
+
+      <div class="esg-banner reveal">
+        <div class="esg-item"><span class="esg-icon">🌿</span><div class="esg-text"><strong>ESG Certified</strong>Carbon reporting per transaction</div></div>
+        <div class="esg-item"><span class="esg-icon">🔐</span><div class="esg-text"><strong>Compliance Ready</strong>50+ country tax treaty database</div></div>
+        <div class="esg-item"><span class="esg-icon">⚡</span><div class="esg-text"><strong>Serverless</strong>Sub-10ms · Zero downtime</div></div>
+        <div class="esg-item"><span class="esg-icon">🌏</span><div class="esg-text"><strong>Silver Economy</strong>20+ country Care-Gap Index</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">Omni-Settlement Index Suite™ v1.0</div>
+        <div class="footer-links">
+          <a href="/docs">API Docs</a>
+          <a href="/redoc">ReDoc</a>
+          <a href="/openapi.json">OpenAPI</a>
+          <a href="/health">Health</a>
+        </div>
+        <div class="footer-note">Global Standard Settlement & Care-Tax API · Serverless · RapidAPI</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Live counter animation
+    function animateCounter(el, target, decimals=0, prefix='', suffix='') {
+      const duration = 1800;
+      const start    = performance.now();
+      const update   = now => {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + (target * ease).toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "version": "2026-Q2",
+  "description": "Global Tax Index: Cross-border service & remittance withholding rates",
+  "source": "IMF World Revenue Longitudinal Dataset + OECD Tax Database (stateless index)",
+  "countries": {
+    "US": { "name": "United States", "service_tax": 0.00, "remittance_tax": 0.00, "withholding_base": 0.30, "vat": 0.00, "silver_care_deduction": 0.20, "tax_treaty_zones": ["KR","JP","PH","MX","DE","GB","CA","AU"] },
+    "KR": { "name": "South Korea",  "service_tax": 0.10, "remittance_tax": 0.00, "withholding_base": 0.22, "vat": 0.10, "silver_care_deduction": 0.15, "tax_treaty_zones": ["US","JP","CN","PH","VN","ID","DE","GB"] },
+    "JP": { "name": "Japan",        "service_tax": 0.10, "remittance_tax": 0.00, "withholding_base": 0.20, "vat": 0.10, "silver_care_deduction": 0.10, "tax_treaty_zones": ["US","KR","CN","AU","GB","DE","SG"] },
+    "CN": { "name": "China",        "service_tax": 0.06, "remittance_tax": 0.05, "withholding_base": 0.10, "vat": 0.13, "silver_care_deduction": 0.00, "tax_treaty_zones": ["US","JP","KR","DE","AU","SG","HK"] },
+    "PH": { "name": "Philippines",  "service_tax": 0.12, "remittance_tax": 0.00, "withholding_base": 0.15, "vat": 0.12, "silver_care_deduction": 0.30, "tax_treaty_zones": ["US","JP","KR","AE","SG","DE"] },
+    "VN": { "name": "Vietnam",      "service_tax": 0.10, "remittance_tax": 0.01, "withholding_base": 0.10, "vat": 0.10, "silver_care_deduction": 0.25, "tax_treaty_zones": ["US","JP","KR","CN","SG","AU"] },
+    "ID": { "name": "Indonesia",    "service_tax": 0.11, "remittance_tax": 0.00, "withholding_base": 0.20, "vat": 0.11, "silver_care_deduction": 0.20, "tax_treaty_zones": ["US","JP","KR","AU","SG","NL"] },
+    "TH": { "name": "Thailand",     "service_tax": 0.07, "remittance_tax": 0.00, "withholding_base": 0.15, "vat": 0.07, "silver_care_deduction": 0.15, "tax_treaty_zones": ["US","JP","KR","AU","SG","DE","CN"] },
+    "MY": { "name": "Malaysia",     "service_tax": 0.06, "remittance_tax": 0.00, "withholding_base": 0.10, "vat": 0.00, "silver_care_deduction": 0.20, "tax_treaty_zones": ["US","JP","KR","AU","SG","CN","GB"] },
+    "SG": { "name": "Singapore",    "service_tax": 0.09, "remittance_tax": 0.00, "withholding_base": 0.00, "vat": 0.09, "silver_care_deduction": 0.10, "tax_treaty_zones": ["US","JP","KR","CN","AU","GB","DE","IN"] },
+    "IN": { "name": "India",        "service_tax": 0.18, "remittance_tax": 0.05, "withholding_base": 0.20, "vat": 0.18, "silver_care_deduction": 0.10, "tax_treaty_zones": ["US","GB","SG","AU","DE","JP","AE"] },
+    "AE": { "name": "UAE",          "service_tax": 0.05, "remittance_tax": 0.00, "withholding_base": 0.00, "vat": 0.05, "silver_care_deduction": 0.05, "tax_treaty_zones": ["US","KR","IN","PH","PK","EG","GB"] },
+    "DE": { "name": "Germany",      "service_tax": 0.19, "remittance_tax": 0.00, "withholding_base": 0.26, "vat": 0.19, "silver_care_deduction": 0.20, "tax_treaty_zones": ["US","JP","KR","GB","FR","NL","AU","CN"] },
+    "GB": { "name": "United Kingdom","service_tax": 0.20, "remittance_tax": 0.00, "withholding_base": 0.20, "vat": 0.20, "silver_care_deduction": 0.20, "tax_treaty_zones": ["US","JP","KR","AU","DE","FR","SG","IN"] },
+    "AU": { "name": "Australia",    "service_tax": 0.10, "remittance_tax": 0.00, "withholding_base": 0.10, "vat": 0.10, "silver_care_deduction": 0.20, "tax_treaty_zones": ["US","JP","KR","CN","SG","GB","DE","IN"] },
+    "CA": { "name": "Canada",       "service_tax": 0.05, "remittance_tax": 0.00, "withholding_base": 0.25, "vat": 0.05, "silver_care_deduction": 0.15, "tax_treaty_zones": ["US","GB","JP","KR","CN","AU","DE","IN"] },
+    "FR": { "name": "France",       "service_tax": 0.20, "remittance_tax": 0.00, "withholding_base": 0.30, "vat": 0.20, "silver_care_deduction": 0.15, "tax_treaty_zones": ["US","GB","DE","JP","AU","SG","CN","MA"] },
+    "MX": { "name": "Mexico",       "service_tax": 0.16, "remittance_tax": 0.00, "withholding_base": 0.10, "vat": 0.16, "silver_care_deduction": 0.05, "tax_treaty_zones": ["US","CA","GB","DE","JP","SG"] },
+    "BR": { "name": "Brazil",       "service_tax": 0.09, "remittance_tax": 0.25, "withholding_base": 0.15, "vat": 0.17, "silver_care_deduction": 0.05, "tax_treaty_zones": ["US","DE","JP","CN","AU"] },
+    "ZA": { "name": "South Africa", "service_tax": 0.15, "remittance_tax": 0.00, "withholding_base": 0.20, "vat": 0.15, "silver_care_deduction": 0.10, "tax_treaty_zones": ["US","GB","DE","AU","CN","IN"] },
+    "NG": { "name": "Nigeria",      "service_tax": 0.075,"remittance_tax": 0.10, "withholding_base": 0.10, "vat": 0.075,"silver_care_deduction": 0.05, "tax_treaty_zones": ["GB","US","CN","AE"] },
+    "EG": { "name": "Egypt",        "service_tax": 0.14, "remittance_tax": 0.05, "withholding_base": 0.20, "vat": 0.14, "silver_care_deduction": 0.10, "tax_treaty_zones": ["AE","US","GB","DE","CN"] },
+    "PK": { "name": "Pakistan",     "service_tax": 0.13, "remittance_tax": 0.00, "withholding_base": 0.10, "vat": 0.13, "silver_care_deduction": 0.15, "tax_treaty_zones": ["AE","US","CN","GB","SA"] },
+    "BD": { "name": "Bangladesh",   "service_tax": 0.15, "remittance_tax": 0.00, "withholding_base": 0.10, "vat": 0.15, "silver_care_deduction": 0.20, "tax_treaty_zones": ["US","GB","AE","SG","JP","KR"] },
+    "SA": { "name": "Saudi Arabia", "service_tax": 0.15, "remittance_tax": 0.00, "withholding_base": 0.05, "vat": 0.15, "silver_care_deduction": 0.05, "tax_treaty_zones": ["PK","IN","EG","PH","ID","GB","US"] }
+  }
+}

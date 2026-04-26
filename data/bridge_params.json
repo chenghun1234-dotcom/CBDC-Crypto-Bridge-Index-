@@ -1,0 +1,84 @@
+{
+  "version": "2026-Q2",
+  "description": "Bridge efficiency parameters for CBDC ↔ Crypto corridors",
+  "swift_baseline": {
+    "avg_fee_per_1000_usd": 42.50,
+    "avg_settlement_hours": 48,
+    "carbon_g_co2_per_1000_usd": 850,
+    "fail_rate_pct": 2.1
+  },
+  "cryptos": {
+    "XRP": {
+      "name": "XRP (Ripple)",
+      "ticker": "XRP",
+      "simulated_price_usd": 2.14,
+      "bridge_efficiency": 0.9720,
+      "avg_fee_per_1000_usd": 0.42,
+      "avg_settlement_seconds": 4,
+      "volatility_30d": 0.28,
+      "carbon_g_co2_per_1000_usd": 3.2,
+      "swift_savings_per_1000_usd": 42.08,
+      "swift_speed_multiplier": 43200,
+      "carbon_reduction_pct": 99.6,
+      "regulatory_status": "ongoing_litigation_resolved_US",
+      "supported_cbdc_corridors": ["USD","EUR","JPY","KRW","SGD","AED","AUD","CNY"]
+    },
+    "ETH": {
+      "name": "Ethereum",
+      "ticker": "ETH",
+      "simulated_price_usd": 3218.50,
+      "bridge_efficiency": 0.9140,
+      "avg_fee_per_1000_usd": 2.80,
+      "avg_settlement_seconds": 15,
+      "volatility_30d": 0.42,
+      "carbon_g_co2_per_1000_usd": 18.5,
+      "swift_savings_per_1000_usd": 39.70,
+      "swift_speed_multiplier": 11520,
+      "carbon_reduction_pct": 97.8,
+      "regulatory_status": "compliant_global",
+      "supported_cbdc_corridors": ["USD","EUR","GBP","JPY","KRW","SGD","AUD"]
+    },
+    "USDC": {
+      "name": "USD Coin (Circle)",
+      "ticker": "USDC",
+      "simulated_price_usd": 1.00,
+      "bridge_efficiency": 0.9850,
+      "avg_fee_per_1000_usd": 0.85,
+      "avg_settlement_seconds": 6,
+      "volatility_30d": 0.004,
+      "carbon_g_co2_per_1000_usd": 5.8,
+      "swift_savings_per_1000_usd": 41.65,
+      "swift_speed_multiplier": 28800,
+      "carbon_reduction_pct": 99.3,
+      "regulatory_status": "compliant_global",
+      "supported_cbdc_corridors": ["USD","EUR","GBP","CAD","AUD","SGD","MXN","BRL"]
+    },
+    "BTC": {
+      "name": "Bitcoin",
+      "ticker": "BTC",
+      "simulated_price_usd": 94250.00,
+      "bridge_efficiency": 0.7820,
+      "avg_fee_per_1000_usd": 8.50,
+      "avg_settlement_seconds": 600,
+      "volatility_30d": 0.55,
+      "carbon_g_co2_per_1000_usd": 4200,
+      "swift_savings_per_1000_usd": 34.00,
+      "swift_speed_multiplier": 288,
+      "carbon_reduction_pct": -394,
+      "regulatory_status": "compliant_global",
+      "supported_cbdc_corridors": ["USD","EUR","GBP","JPY"]
+    }
+  },
+  "cbdc_pairs": {
+    "USD": {"name": "Digital Dollar (FedNow/CBDC)", "iso": "USD", "region": "United States", "type": "wholesale_cbdc"},
+    "EUR": {"name": "Digital Euro (ECB)", "iso": "EUR", "region": "Eurozone",       "type": "wholesale_cbdc"},
+    "KRW": {"name": "Digital Won (CBOC)", "iso": "KRW", "region": "South Korea",    "type": "retail_cbdc_pilot"},
+    "JPY": {"name": "Digital Yen (BOJ)",  "iso": "JPY", "region": "Japan",          "type": "retail_cbdc_pilot"},
+    "CNY": {"name": "e-CNY (PBOC)",       "iso": "CNY", "region": "China",          "type": "retail_cbdc_live"},
+    "SGD": {"name": "Digital SGD (MAS)",  "iso": "SGD", "region": "Singapore",      "type": "wholesale_cbdc"},
+    "AED": {"name": "Digital Dirham (CBUAE)","iso":"AED","region": "UAE",           "type": "wholesale_cbdc_pilot"},
+    "GBP": {"name": "Digital Pound (BoE)","iso": "GBP", "region": "United Kingdom", "type": "research_phase"},
+    "AUD": {"name": "eAUD (RBA)",         "iso": "AUD", "region": "Australia",      "type": "pilot_complete"},
+    "CAD": {"name": "Digital CAD (BoC)",  "iso": "CAD", "region": "Canada",         "type": "research_phase"}
+  }
+}

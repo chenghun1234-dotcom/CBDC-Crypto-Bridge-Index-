@@ -1,0 +1,408 @@
+openapi: "3.0.3"
+info:
+  title: "Omni-Settlement Index Suite"
+  description: |
+    ## Global Standard Settlement & Care-Tax API
+
+    **"The Final Mile for Cross-Border Silver Economy Payments."**
+
+    A stateless, zero-infrastructure B2B API that bridges **CBDC** (Central Bank Digital Currencies)
+    with decentralized crypto rails (XRP, ETH, USDC) — optimized for the **Silver Economy**.
+
+    ### Core Settlement Formula
+    ```
+    S_rate = (V_base × I_care) × (1 + T_global) × B_eff
+    ```
+    | Symbol | Description |
+    |---|---|
+    | `V_base` | CBDC ↔ Crypto bridge rate |
+    | `I_care` | Care-Gap Index multiplier |
+    | `T_global` | Global Tax Index |
+    | `B_eff` | Bridge Efficiency vs SWIFT |
+
+    ### Pricing Tiers
+    - **Basic** (Free): 100 calls/mo — `/bridge/rate`, `/care/valuation`
+    - **Pro** ($29/mo): 5,000 calls/mo — + `/tax/calculate`
+    - **Ultra** ($99/mo): 50,000 calls/mo — + `/total/settlement` + ESG
+  version: "1.0.0"
+  contact:
+    name: "Omni-Settlement Support"
+    url: "https://omni-settlement.vercel.app"
+    email: "api@omni-settlement.io"
+  license:
+    name: "Proprietary – Commercial via RapidAPI"
+
+servers:
+  - url: "https://omni-settlement.vercel.app"
+    description: "Production (Vercel Serverless)"
+  - url: "http://localhost:8000"
+    description: "Local development"
+
+tags:
+  - name: "Bridge Rate"
+    description: "CBDC ↔ Crypto settlement index (V_base + B_eff)"
+  - name: "Global Tax Index"
+    description: "Cross-border withholding & service tax (T_global)"
+  - name: "Care-Gap Index"
+    description: "Silver economy care service valuation (I_care)"
+  - name: "Total Settlement (SSI)"
+    description: "⭐ Killer endpoint – full S_rate formula output"
+  - name: "System"
+    description: "API health and status"
+
+paths:
+  /health:
+    get:
+      tags: ["System"]
+      summary: "API Health Check"
+      operationId: "health_check"
+      responses:
+        "200":
+          description: "API operational"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:    { type: string, example: "operational" }
+                  api:       { type: string, example: "Omni-Settlement Index Suite" }
+                  version:   { type: string, example: "1.0.0" }
+
+  /bridge/rate:
+    get:
+      tags: ["Bridge Rate"]
+      summary: "CBDC ↔ Crypto Real-Time Settlement Index"
+      operationId: "get_bridge_rate"
+      description: |
+        Returns **V_base** (bridge exchange rate) and **B_eff** (bridge efficiency score)
+        between a supported CBDC and target cryptocurrency.
+        Includes fee comparison vs SWIFT, settlement speed, and ESG carbon data.
+
+        **Tier**: Basic (Free)
+      parameters:
+        - name: base_currency
+          in: query
+          required: false
+          description: "CBDC source currency code"
+          schema:
+            type: string
+            default: "USD"
+            enum: [USD, EUR, KRW, JPY, CNY, SGD, AED, GBP, AUD, CAD]
+          example: "USD"
+        - name: target_crypto
+          in: query
+          required: false
+          description: "Target crypto bridge asset"
+          schema:
+            type: string
+            default: "XRP"
+            enum: [XRP, ETH, USDC, BTC]
+          example: "XRP"
+        - name: amount
+          in: query
+          required: false
+          description: "Transaction amount in USD (min: 1, max: 10,000,000)"
+          schema:
+            type: number
+            default: 1000
+            minimum: 1
+            maximum: 10000000
+          example: 1000
+      responses:
+        "200":
+          description: "Bridge rate and efficiency metrics"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BridgeRateResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /tax/calculate:
+    get:
+      tags: ["Global Tax Index"]
+      summary: "Cross-Border Service Tax & Withholding Rate"
+      operationId: "calculate_tax"
+      description: |
+        Returns **T_global** — the effective combined tax rate for a payment corridor.
+        Includes withholding tax, service tax, VAT, treaty discounts, and silver care deductions.
+
+        **Tier**: Pro ($29/mo)
+      parameters:
+        - name: from_country
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "US"
+          description: "Origin country ISO 3166-1 alpha-2 code"
+          example: "US"
+        - name: to_country
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "PH"
+          description: "Destination country ISO 3166-1 alpha-2 code"
+          example: "PH"
+        - name: amount
+          in: query
+          required: false
+          schema:
+            type: number
+            default: 5000
+            minimum: 1
+          description: "Payment amount in USD"
+          example: 5000
+        - name: service_type
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "care"
+            enum: [care, remittance, general]
+          description: "Service type for tax categorization"
+          example: "care"
+      responses:
+        "200":
+          description: "Tax calculation result"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaxResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /care/valuation:
+    get:
+      tags: ["Care-Gap Index"]
+      summary: "Silver Care Service Standard Value (Care-Gap Index)"
+      operationId: "get_care_valuation"
+      description: |
+        Returns **I_care** — the Care-Gap Index multiplier for a destination country.
+        Includes care cost projections, arbitrage score, and savings vs US baseline.
+
+        **Tier**: Basic (Free)
+      parameters:
+        - name: region
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "PH"
+          description: "Country ISO code for care service region"
+          example: "PH"
+        - name: service_type
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "visit"
+            enum: [visit, residential, remote]
+          description: "Type of care service"
+          example: "visit"
+        - name: hours_per_week
+          in: query
+          required: false
+          schema:
+            type: number
+            default: 40
+            minimum: 1
+            maximum: 168
+          description: "Weekly care hours (40 = full-time)"
+          example: 40
+      responses:
+        "200":
+          description: "Care-Gap valuation result"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /total/settlement:
+    post:
+      tags: ["Total Settlement (SSI)"]
+      summary: "⭐ Full Standard Settlement Rate (S_rate = V_base × I_care × (1+T_global) × B_eff)"
+      operationId: "total_settlement"
+      description: |
+        **The Omni-Settlement Index Suite's flagship endpoint.**
+
+        Computes the complete **Standard Settlement Rate (S_rate)** by combining all three indices:
+        ```
+        S_rate = (V_base × I_care) × (1 + T_global) × B_eff
+        ```
+        Returns exact crypto amount received, tax liability, ESG carbon savings,
+        care coverage months, and arbitrage recommendations.
+
+        **Tier**: Ultra ($99/mo)
+
+        ### Example Use Case
+        A US senior care agency sends $5,000 to hire a Philippine care worker via XRP.
+        Response includes exact XRP received, $210 SWIFT savings, 8.4 months of care covered,
+        and 4,233g CO₂ saved vs wire transfer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SettlementRequest"
+            example:
+              origin_cbdc: "USD"
+              dest_country: "PH"
+              amount: 5000
+              target_crypto: "XRP"
+              service_type: "care"
+      responses:
+        "200":
+          description: "Full SSI settlement rate and breakdown"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettlementResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+components:
+  schemas:
+    SettlementRequest:
+      type: object
+      properties:
+        origin_cbdc:
+          type: string
+          default: "USD"
+          enum: [USD, EUR, KRW, JPY, CNY, SGD, AED, GBP, AUD, CAD]
+          description: "Source CBDC currency code"
+        dest_country:
+          type: string
+          default: "PH"
+          description: "Destination ISO 3166-1 alpha-2 country code"
+        amount:
+          type: number
+          default: 5000
+          minimum: 1
+          maximum: 10000000
+          description: "Transaction amount in USD"
+        target_crypto:
+          type: string
+          default: "XRP"
+          enum: [XRP, ETH, USDC, BTC]
+          description: "Target crypto bridge asset"
+        service_type:
+          type: string
+          default: "care"
+          enum: [care, remittance, general]
+          description: "Service type for tax and care classification"
+
+    BridgeRateResponse:
+      type: object
+      properties:
+        status:     { type: string }
+        api:        { type: string }
+        elapsed_ms: { type: number }
+        data:
+          type: object
+          properties:
+            v_base:            { type: number, description: "Units of crypto per 1 USD equivalent" }
+            bridge_efficiency: { type: number, description: "B_eff risk-adjusted efficiency score (0-1)" }
+            fee_comparison:
+              type: object
+              properties:
+                swift_fee_usd:  { type: number }
+                bridge_fee_usd: { type: number }
+                savings_usd:    { type: number }
+                savings_pct:    { type: number }
+            settlement_speed:
+              type: object
+              properties:
+                crypto_seconds:   { type: number }
+                speed_multiplier: { type: string }
+            esg_carbon:
+              type: object
+              properties:
+                carbon_reduction_pct: { type: number }
+
+    TaxResponse:
+      type: object
+      properties:
+        status: { type: string }
+        data:
+          type: object
+          properties:
+            t_global:       { type: number, description: "Effective combined tax rate (decimal)" }
+            t_global_pct:   { type: number }
+            tax_amount_usd: { type: number }
+            net_amount_usd: { type: number }
+            tax_breakdown:
+              type: object
+              properties:
+                treaty_discount_applied:   { type: boolean }
+                effective_withholding_pct: { type: number }
+                silver_care_deduction_pct: { type: number }
+
+    CareResponse:
+      type: object
+      properties:
+        status: { type: string }
+        data:
+          type: object
+          properties:
+            i_care:          { type: number, description: "Care-Gap Index multiplier (0.0-1.0+)" }
+            arbitrage_score: { type: number }
+            cost_projection:
+              type: object
+              properties:
+                monthly_cost_usd: { type: number }
+                annual_cost_usd:  { type: number }
+            gap_vs_us_baseline:
+              type: object
+              properties:
+                monthly_savings_vs_us: { type: number }
+
+    SettlementResponse:
+      type: object
+      properties:
+        status: { type: string }
+        data:
+          type: object
+          properties:
+            s_rate: { type: number, description: "Final Standard Settlement Rate" }
+            components:
+              type: object
+              properties:
+                v_base:   { type: number }
+                i_care:   { type: number }
+                t_global: { type: number }
+                b_eff:    { type: number }
+            settlement_summary:
+              type: object
+              properties:
+                net_after_tax_usd:   { type: number }
+                crypto_received:     { type: number }
+                care_coverage_months_: { type: number }
+            cost_efficiency:
+              type: object
+              properties:
+                savings_usd:      { type: number }
+                savings_pct:      { type: number }
+                settlement_speed: { type: string }
+            esg:
+              type: object
+              properties:
+                carbon_reduction_pct: { type: number }
+                carbon_saved_g:       { type: number }
+
+  responses:
+    BadRequest:
+      description: "Invalid parameter"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: object
+                properties:
+                  status:  { type: string, example: "error" }
+                  message: { type: string }
