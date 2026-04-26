@@ -1,0 +1,42 @@
+name: Daily Data Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Every day at midnight UTC
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Update Data
+        run: python scripts/update_data.py
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/*.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: nightly data sync (FRED & World Bank)"
+            git push
+          fi

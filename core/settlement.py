@@ -19,13 +19,22 @@ def calculate_ssi(
     Compute the final Standard Settlement Rate (S_rate) using the SSI formula.
     Combines V_base, I_care, T_global, and B_eff.
     """
+    # Map high-level service_type to care-gap specific sub-types if needed
+    mapped_care_type = service_type
+    if service_type == "care":
+        mapped_care_type = "visit"  # Default fallback
+    elif service_type not in ["visit", "residential", "remote"]:
+        # If it's not a care type at all (remittance/general), 
+        # use visit as indexing baseline for I_care component
+        mapped_care_type = "visit"
+
     # --- Component 1: Bridge Rate (V_base, B_eff) ---
     bridge  = get_bridge_rate(origin_cbdc, target_crypto, amount)
     v_base  = bridge["v_base"]
     b_eff   = bridge["bridge_efficiency"]
 
     # --- Component 2: Care-Gap Index (I_care) ---
-    care    = get_care_valuation(dest_country, service_type)
+    care    = get_care_valuation(dest_country, mapped_care_type)
     i_care  = care["i_care"]
 
     # --- Component 3: Global Tax Index (T_global) ---

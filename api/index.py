@@ -12,8 +12,8 @@ _HERE = os.path.dirname(os.path.abspath(__file__))   # …/api/
 _ROOT = os.path.dirname(_HERE)                        # …/ (project root)
 sys.path.insert(0, _ROOT)
 
-from fastapi import FastAPI, Query, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi import FastAPI, Query, HTTPException, Request, Response
+from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -25,6 +25,7 @@ from core.bridge     import get_bridge_rate
 from core.tax        import calculate_tax
 from core.care       import get_care_valuation
 from core.settlement import calculate_ssi
+from core.report     import generate_pdf_report
 
 # ─── App Initialization ─────────────────────────────────────────────────────
 
@@ -103,7 +104,7 @@ class SettlementRequest(BaseModel):
     dest_country:  str   = Field("PH",   description="Destination ISO 3166-1 alpha-2 country code", example="PH")
     amount:        float = Field(5000.0, description="Transaction amount in USD", ge=1.0, le=10_000_000, example=5000)
     target_crypto: str   = Field("XRP",  description="Target crypto bridge asset (XRP/ETH/USDC/BTC)", example="XRP")
-    service_type:  str   = Field("care", description="Service type: care | remittance | general", example="care")
+    service_type:  str   = Field("care", description="Service type: care|remittance|general or care sub-types: visit|residential|remote", example="care")
 
 # ─── Helper ──────────────────────────────────────────────────────────────────
 
@@ -305,3 +306,42 @@ async def total_settlement(body: SettlementRequest):
     except ValueError as e:
         _error(400, str(e))
     return _wrap(data, "/total/settlement", (time.perf_counter() - t0) * 1000)
+
+
+@app.post(
+    "/report/generate",
+    tags=["Total Settlement (SSI)"],
+    summary="Generate Professional PDF Settlement Certificate",
+    description="""
+Generate a signed, professional PDF report of a settlement calculation.
+Ideal for B2B compliance, auditing, and corporate record-keeping.
+
+**RapidAPI Recommendation**: Use 'Pay-per-use' modeling to charge per generated report.
+
+**Tier Required**: Ultra ($99/mo) or Pay-per-use
+""",
+    response_description="Binary PDF file stream"
+)
+async def report_generate(body: SettlementRequest):
+    try:
+        # 1. Calculate settlement data
+        data = calculate_ssi(
+            body.origin_cbdc,
+            body.dest_country,
+            body.amount,
+            body.target_crypto,
+            body.service_type
+        )
+        
+        # 2. Generate PDF bytes
+        pdf_bytes = generate_pdf_report(data)
+        
+        # 3. Return as response
+        filename = f"OmniSettlement_{body.dest_country}_{datetime.now().strftime('%Y%m%d')}.pdf"
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
+        )
+    except Exception as e:
+        _error(500, f"Report generation failed: {str(e)}")
