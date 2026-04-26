@@ -7,7 +7,10 @@ FastAPI main application – Vercel serverless entry point.
 """
 import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+_HERE = os.path.dirname(os.path.abspath(__file__))   # …/api/
+_ROOT = os.path.dirname(_HERE)                        # …/ (project root)
+sys.path.insert(0, _ROOT)
 
 from fastapi import FastAPI, Query, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -77,7 +80,7 @@ app.add_middleware(
 )
 
 # ─── Static files (landing page) ────────────────────────────────────────────
-PUBLIC_DIR = Path(__file__).parent.parent / "public"
+PUBLIC_DIR = Path(os.path.join(_ROOT, "public"))
 if PUBLIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(PUBLIC_DIR)), name="static")
 
