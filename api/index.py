@@ -80,7 +80,19 @@ app.add_middleware(
 )
 
 # ─── Static files (landing page) ────────────────────────────────────────────
-PUBLIC_DIR = Path(os.path.join(_ROOT, "public"))
+# Vercel environment: files are bundled relative to the root
+_POSSIBLE_PUBLIC_DIRS = [
+    Path(os.path.join(_ROOT, "public")),
+    Path(os.getcwd()) / "public",
+    Path("/var/task/public")
+]
+
+PUBLIC_DIR = _POSSIBLE_PUBLIC_DIRS[0]
+for d in _POSSIBLE_PUBLIC_DIRS:
+    if d.exists():
+        PUBLIC_DIR = d
+        break
+
 if PUBLIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(PUBLIC_DIR)), name="static")
 
