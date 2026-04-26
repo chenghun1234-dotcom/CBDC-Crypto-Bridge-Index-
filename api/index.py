@@ -234,6 +234,33 @@ async def care_valuation(
     return _wrap(data, "/care/valuation", (time.perf_counter() - t0) * 1000)
 
 
+@app.get("/debug/paths", tags=["System"], include_in_schema=False)
+async def debug_paths():
+    import os
+    from pathlib import Path
+    
+    # List files up to 2 levels deep from task root
+    task_root = os.environ.get("LAMBDA_TASK_ROOT", os.getcwd())
+    file_structure = []
+    
+    for p in Path(task_root).glob("**/*"):
+        if ".git" in str(p) or "__pycache__" in str(p) or ".vercel" in str(p):
+            continue
+        if p.is_file():
+            file_structure.append(str(p.relative_to(task_root)))
+            
+    return {
+        "cwd": os.getcwd(),
+        "task_root": task_root,
+        "here": _HERE,
+        "root": _ROOT,
+        "public_dir": str(PUBLIC_DIR),
+        "public_exists": PUBLIC_DIR.exists(),
+        "env": {k: v for k, v in os.environ.items() if "SECRET" not in k.upper()},
+        "files": sorted(file_structure[:100]) # top 100 files
+    }
+
+
 @app.post(
     "/total/settlement",
     tags=["Total Settlement (SSI)"],
